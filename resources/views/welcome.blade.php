@@ -95,6 +95,11 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+            
         </div>
+        <div id="app" class="hola">
+            <example-component></example-component>
+        </div>
+        <script src="{{ asset('js/app.js')}}"></script>  
     </body>
 </html>
