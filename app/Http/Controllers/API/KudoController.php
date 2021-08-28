@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 class KudoController extends Controller
 {
@@ -12,7 +14,6 @@ class KudoController extends Controller
     public function index()
     {
         return User::orderBy('id', 'DESC')->get();
-
     }
 
 

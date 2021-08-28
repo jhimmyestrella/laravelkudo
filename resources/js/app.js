@@ -19,7 +19,11 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('kudo-principal', require('./components/KudoPrincipal.vue').default);
+Vue.component('kudo-projet', require('./components/KudoProjet.vue').default);
+Vue.component('kudo-birthday', require('./components/KudoBirthday.vue').default);
+Vue.component('kudo-person', require('./components/KudoPerson.vue').default);
+Vue.component('kudo-component', require('./components/KudoComponent.vue').default);
 
 Vue.component('vue-multiselect', window.VueMultiselect)
 

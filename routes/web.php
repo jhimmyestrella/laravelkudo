@@ -21,3 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::apiResource('kudo', 'API\KudoController');
+Route::apiResource('kudoBirthday', 'API\KudoBirthdayController');
+
+Route::get('/mostrarKudoBir', 'API\KudoBirthdayController@mostrarKudoBir');
