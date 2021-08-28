@@ -97,9 +97,6 @@
             </div>
             
         </div>
-        <div id="app" class="hola">
-            <example-component></example-component>
-        </div>
-        <script src="{{ asset('js/app.js')}}"></script>  
+         
     </body>
 </html>

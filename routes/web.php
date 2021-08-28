@@ -20,4 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-//Route::apiResource('photos', 'PhotoController');
+Route::apiResource('kudo', 'API\KudoController');
