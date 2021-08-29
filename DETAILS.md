@@ -1,0 +1,10 @@
+- Un Problema con el Rest Password, ya que lo había usado antes de laravel.
+- Aprendí a usar la librería vue-multiselect.
+- Aprende a más detalle a usar git y github, para el control de versiones del sistema y usarlo en futuros sistemas.
+- Aprendí a usar mas el laravel mix
+- Aprendí más sobre bue y sus distintas funciones.
+- Por el tiempo no pude completar la totalidad de los requerimientos que debería tener el sistema, pero lo explico cómo debería ser el archivo de README
+- No se implementó por el tiempo, pero son buena “tecnologías” segundo lo que investigue.
+	- Laravel Echo y pusher
+	- Docker
+	- Postman’s
