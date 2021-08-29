@@ -14,6 +14,11 @@ class KudoBirthdayController extends Controller
 
     public function index()
     {
+        return KudoBirthday::orderBy('id', 'DESC')->get();
+    }
+
+    public function mostrarUserkudo(){
+
          /*SELECT * FROM personas WHERE DAY(`fecha_nacimiento`)=DAY(NOW()) AND MONTH(`fecha_nacimiento`)=MONTH(NOW());*/
 
         $dia = Carbon::now()->format('d');
@@ -26,46 +31,43 @@ class KudoBirthdayController extends Controller
 
             if ($fecha_d == $dia && $fecha_m  == $mes) {
 
-                $horarios[]= [
+                $usersm[]= [
                             'id' => $user['id'],
                             'name'=> $user['name'],
                             ];
             }
         }
-
-        return $horarios;
-    }
-    public function mostrarKudoBir(Request $request){
-
-        return KudoBirthday::orderBy('id', 'DESC')->get();
+        return $usersm;
         
     }
 
     public function store(Request $request)
     {
-/*        dd(auth()->user()->name);
-*/         dd($request->persona['name']);        
+        /*dd(auth()->user()->name); */
+
         $KudoBirthday = new KudoBirthday();
-        $KudoBirthday->user_id = auth()->id();
-        $KudoBirthday->id_user = $request->id_user;
-        $KudoBirthday->comment = $request->comment;
+        $KudoBirthday->name_user_create = auth()->user()->name;
+        $KudoBirthday->name_user_receptor = $request->persona['name'];
+        $KudoBirthday->comment = $request->comentario;
         $KudoBirthday->save();
 
         return $KudoBirthday;
     }
 
-    public function show(KudoBirthday $kudoBirthday)
+
+    public function update(Request $request, $id)
     {
-        //
+
+        $KudoBirthday = KudoBirthday::find($id);
+        $KudoBirthday->comment = $request->comentario;
+        $KudoBirthday->save();
+
+        return $KudoBirthday;
     }
 
-    public function update(Request $request, KudoBirthday $kudoBirthday)
+    public function destroy($id)
     {
-        //
-    }
-
-    public function destroy(KudoBirthday $kudoBirthday)
-    {
-        //
+        $KudoBirthday = KudoBirthday::find($id);
+        $KudoBirthday->delete();
     }
 }

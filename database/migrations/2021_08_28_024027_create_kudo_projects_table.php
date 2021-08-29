@@ -15,7 +15,7 @@ class CreateKudoProjectsTable extends Migration
     {
         Schema::create('kudo_projects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('id_user_create');
+            $table->string('name_user_create');
             $table->string('project');
             $table->string('comment');
             $table->boolean('status')->nullable();

@@ -1936,11 +1936,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1956,7 +1951,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('kudoBirthday').then(function (response) {
+    axios.get('mostrarUserkudo').then(function (response) {
       _this.users = response.data;
     });
   },
@@ -1973,8 +1968,6 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.$emit('new', enviarKudo);
       });
-      console.log(this.comentario);
-      console.log(this.persona);
     }
   }
 });
@@ -2005,8 +1998,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['kudo']
+  props: ['kudo'],
+  data: function data() {
+    return {
+      editMode: false
+    };
+  },
+  methods: {
+    onClickDelete: function onClickDelete() {
+      var _this = this;
+
+      axios["delete"]("/kudoBirthday/".concat(this.kudo.id)).then(function () {
+        _this.$emit('delete');
+      });
+    },
+    onClickEdit: function onClickEdit() {
+      this.editMode = true;
+    },
+    onClickUpdate: function onClickUpdate() {
+      var _this2 = this;
+
+      var params = {
+        comentario: this.kudo.comment
+      };
+      axios.put("/kudoBirthday/".concat(this.kudo.id), params).then(function (response) {
+        _this2.editMode = false;
+        var enviarKudo = response.data;
+
+        _this2.$emit('update', enviarKudo);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2121,6 +2158,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2130,13 +2169,19 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('/mostrarKudoBir').then(function (response) {
+    axios.get('/kudoBirthday').then(function (response) {
       _this.kudos = response.data;
     });
   },
   methods: {
     addKudobir: function addKudobir(enviarKudo) {
       this.kudos.push(enviarKudo);
+    },
+    updateKudobir: function updateKudobir(index, enviarKudo) {
+      this.kudos[index] = enviarKudo;
+    },
+    deleteKudobir: function deleteKudobir(index) {
+      this.kudos.splice(index, 1);
     }
   }
 });
@@ -38498,40 +38543,10 @@ var render = function() {
                     },
                     expression: "persona"
                   }
-                }),
-                _vm._v(" "),
-                _c("pre", { staticClass: "language-json" }, [
-                  _c("code", [_vm._v(_vm._s(_vm.persona))])
-                ])
+                })
               ],
               1
             ),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Comentario")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.asd,
-                    expression: "asd"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", rows: "3" },
-                domProps: { value: _vm.asd },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.asd = $event.target.value
-                  }
-                }
-              })
-            ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Comentario")]),
@@ -38604,20 +38619,81 @@ var render = function() {
         _c("div", { staticClass: "card-header" }, [
           _vm._v(
             "\n           \t\tDe: " +
-              _vm._s(_vm.kudo.id_user_create) +
-              "\n                Para: " +
-              _vm._s(_vm.kudo.id_user) +
-              "\n                Fecha: " +
+              _vm._s(_vm.kudo.name_user_create) +
+              " ---\n                Para: " +
+              _vm._s(_vm.kudo.name_user_receptor) +
+              "---\n                Fecha: " +
               _vm._s(_vm.kudo.created_at) +
+              "\n                 " +
+              _vm._s(_vm.kudo.id) +
               "\n        \t"
           )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _vm._v(
-            "\n                Comentario: " +
-              _vm._s(_vm.kudo.comment) +
-              "\n            "
+          _vm.editMode
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.kudo.comment,
+                    expression: "kudo.comment"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.kudo.comment },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.kudo, "comment", $event.target.value)
+                  }
+                }
+              })
+            : _c("p", [_vm._v("Comentario: " + _vm._s(_vm.kudo.comment))])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-footer" }, [
+          _vm.editMode
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  on: {
+                    click: function($event) {
+                      return _vm.onClickUpdate()
+                    }
+                  }
+                },
+                [_vm._v("\n\t                Guardar cambios\n\t            ")]
+              )
+            : _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.onClickEdit()
+                    }
+                  }
+                },
+                [_vm._v("\n\t                Editar\n\t            ")]
+              ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger",
+              on: {
+                click: function($event) {
+                  return _vm.onClickDelete()
+                }
+              }
+            },
+            [_vm._v("\n\t                Eliminar\n\t            ")]
           )
         ])
       ])
@@ -38789,7 +38865,21 @@ var render = function() {
         staticStyle: { "margin-top": "30px" }
       },
       _vm._l(_vm.kudos, function(kudo, index) {
-        return _c("kudo-component", { key: kudo.id, attrs: { kudo: kudo } })
+        return _c("kudo-component", {
+          key: kudo.id,
+          attrs: { kudo: kudo },
+          on: {
+            update: function($event) {
+              var i = arguments.length,
+                argsArray = Array(i)
+              while (i--) argsArray[i] = arguments[i]
+              return _vm.updateKudobir.apply(void 0, [index].concat(argsArray))
+            },
+            delete: function($event) {
+              return _vm.deleteKudobir(index)
+            }
+          }
+        })
       }),
       1
     )

@@ -9,12 +9,7 @@
                             <multiselect v-model="persona" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Select one" :options="users" :searchable="false" :allow-empty="false">
                             <template slot="singleLabel" slot-scope="{ user }"></template>
                             </multiselect>
-                            <pre class="language-json"><code>{{ persona  }}</code></pre>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label >Comentario</label>
-                            <input class="form-control"  type="text" rows="3" v-model="asd" >
+                            <!-- <pre class="language-json"><code>{{ persona  }}</code></pre> -->
                         </div>
                         <div class="form-group">
                             <label >Comentario</label>
@@ -46,7 +41,7 @@
         },
 
         mounted() {
-            axios.get('kudoBirthday').then((response) => {
+            axios.get('mostrarUserkudo').then((response) => {
                 this.users = response.data;
             });
         },
@@ -61,9 +56,6 @@
                         const enviarKudo = response.data;
                         this.$emit('new', enviarKudo);
                 });
-	        	console.log(this.comentario);
-	        	console.log(this.persona);
-
 
 	        }
 

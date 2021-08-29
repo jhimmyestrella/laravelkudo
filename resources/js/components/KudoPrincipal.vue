@@ -13,7 +13,9 @@
 	        <kudo-component
 	        	v-for="(kudo, index) in kudos"
                 :key="kudo.id"
-                :kudo="kudo">
+                :kudo="kudo"
+                @update="updateKudobir(index, ...arguments)"
+                @delete="deleteKudobir(index)">
 	        	
 	        </kudo-component>
 
@@ -31,7 +33,7 @@
 			}
 		},
 		mounted() {
-            axios.get('/mostrarKudoBir').then((response) => {
+            axios.get('/kudoBirthday').then((response) => {
                 this.kudos = response.data;
             });
         },
@@ -39,6 +41,12 @@
             addKudobir(enviarKudo) {
                 this.kudos.push(enviarKudo);
             },
+            updateKudobir(index, enviarKudo) {
+                this.kudos[index] = enviarKudo;
+            },
+            deleteKudobir(index) {
+                this.kudos.splice(index, 1);
+            }
 
         }
 		

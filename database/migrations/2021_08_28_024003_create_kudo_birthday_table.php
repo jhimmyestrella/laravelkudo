@@ -15,8 +15,8 @@ class CreateKudoBirthdayTable extends Migration
     {
         Schema::create('kudo_birthday', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('id_user_create');
-            $table->bigInteger('id_user');
+            $table->string('name_user_create');
+            $table->string('name_user_receptor');
             $table->string('comment');
             $table->boolean('status')->nullable();
             $table->timestamps();
